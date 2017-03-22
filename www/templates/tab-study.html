@@ -1,0 +1,116 @@
+<ion-view view-title="学习首页"  hide-tabs="true" hide-nav-bar="true" ng-controller="StudyCtrl">
+  <style>
+    .col_spe{text-align: center;width:5.4rem;}
+    .list_mulu{padding-top:1.8rem;overflow-y:scroll;}
+    .circle{padding-left:0.6rem;border-left:1px dashed #cccccc;position: relative;
+      line-height:1.5rem;height: 1.5rem;}
+    .span_01{
+      width:4.6rem;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+    .span_02{width:3rem;float:right;}
+    .span_cir{width: 0.3rem;height:0.3rem;background:url(img/study_circle.png) no-repeat;position: absolute;top: 0.6rem;left: -0.17rem;background-size: 100% 100%;}
+    .viewed{color:#0c60ee;}
+    .isViewing{color:#4cd964;}
+    .video .video_login{position:absolute;top:0;left:0;width:100%;height:5.96rem;background:#000;color:#ffffff;opacity:0.6;z-index:999;text-align:center;line-height:5.96rem;}
+    .video .video_buy{position:absolute;top:0;left:0;width:100%;height:5.96rem;background:#000;color:#ffffff;opacity:0.6;z-index:999;text-align:center;line-height:5.96rem;}
+
+  </style>
+  <div class="study_up" style="position:fixed;top:0;left:0;width:100%;z-index:99999">
+    <div class="video">
+
+      <div style="width:100%;height:5.96rem;background:#fff;">
+        <!--普通网页<video controls loop src="{{}}" width="100%" height="auto"></video>-->
+        <!--封装成app<video id="" controls style="width:100%" height="5.96rem" ></video>-->
+        <!--兼容写法-->
+        <video ng-show="pcTrue"  controls loop src="{{Vurl}}" width="100%" height="auto"></video>
+        <video ng-show="!pcTrue" id="video1" controls style="width: 100%;height:5.96rem"></video>
+      </div>
+      <div class="video_buy" ng-show="shadow.video_buy">请在下方购买</div>
+      <div class="video_login" ng-show="login">请<a href="#/tab/personal">登陆</a></div>
+
+    </div>
+    <div class="row nav" style="background: #ccc;">
+      <div class="col col-50 col_spe" id="mulu" ng-click="showCourse()" ng-style="color" style="border-right:2px solid #fff;margin-top:0.2rem;">目录<i class="icon ion-chevron-down"></i></div>
+      <div class="col col-50 col_spe" id="detail" ng-click="showPingjia()" ng-style="colorc">详情<i class="icon ion-chevron-down"></i></div>
+
+    </div>
+
+
+  </div>
+  <ion-content class="study_mlxq" style="padding-top:7.2rem;padding-bottom:1.4rem;height:100%;">
+
+    <div class="content ionic-pseudo" ng-show="flag.showCourse" >
+      <div  ng-repeat="x in courseData.CDlist">
+        <div class="list" style="margin-bottom:0;"><a class="item">{{x.CDname}}</a></div>
+        <div class="list_mulu">
+          <div class="circle" ng-repeat="y in x.Vlist" ng-class='{viewed: Vlist.isViewed,isViewing: Vlist.isViewing}'>
+            <span class="span_02">{{y.Vtime }}分钟</span>
+            <div class="span_01" ng-click="changeVideo(y.Vurl,y.ID)">{{y.Vname}}</div>
+            <span class="span_cir"></span>
+          </div>
+        </div>
+      </div>
+      <div style="height:1.3rem;"></div>
+</div>
+    <!--详情列表-->
+    <div class="content  ionic-pseudo" ng-show="flag.showPingjia">
+      <!--$scope.pingjia-->
+      <div class="item"style="color:#0a9ec7;">{{courseData.Cname}}评价</div>
+      <div class="list_xiangqing">
+        <div class="list">
+          <div class="item item-avatar" ng-repeat="x in pingjia.list">
+            <img src="img/study_tx.jpg">
+            <span style="text-align:left;">{{x.ID}}</span>
+            <span>{{x.createAt}}</span>
+            <p style="white-space:normal;">{{x.evaluate}}</p>
+          </div>
+        </div>
+      </div>
+      <div style="height:1.3rem;"></div>
+    </div>
+
+  </ion-content>
+
+  <div class="tabs tabs-icon-top" >
+    <a class="tab-item" ng-click="showpingjia()">
+      <i class="icon ion-edit" icon-on="ion-edit-outline" icon-off="ion-edit"></i>
+      评价
+    </a>
+    <a class="tab-item" >
+      <i class="icon ion-android-star" icon-on="ion-android-star-outline" icon-off="ion-android-star"></i>
+      已收藏
+    </a>
+    <a class="tab-item" ng-click="payGo()">
+      <i class="icon ion-ios-download" icon-on="ion-ios-download-outline" icon-off="ion-ios-download"></i>
+      已购买
+    </a>
+  </div>
+
+
+  <script type="text/ng-template" id="pingjia.html">
+    <ion-modal-view >
+
+      <div class="bar bar-header bar-positive">
+        <h1 class="title">写评价</h1>
+        <button class="button button-clear " ng-click="closepingjia()">关闭   </button>
+
+      </div>
+
+      <div class="content has-header">
+        <div class="padding">
+          <textarea style="border:1px solid #ccc" placeholder="写下您宝贵的意见或者建议" maxlength="300" cols="55" rows="11"></textarea>
+        </div>
+        <div class="row">
+          <button class="col col-33 col-offset-33  button button-positive" ng-click="setUp()">提交</button>
+        </div>
+
+      </div>
+    </ion-modal-view>
+
+
+
+
+</script>
+
+
+</ion-view>
+

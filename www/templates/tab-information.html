@@ -1,0 +1,60 @@
+<ion-view view-title="information" hide-nav-bar="true">
+	<style>
+		.personal_top{
+			width: 100%;
+			height:8.3rem;
+			position:relative;
+			font-size: 0.36rem;
+			background: url(img/person_touxiang.png) no-repeat;
+			background-size:100% 100% ;
+		}
+		.left_top{
+			width: 0.38rem;
+			height:0.38rem;
+			background: url(img/person_03.png) no-repeat;
+			position: absolute;
+			top: 1.93rem;
+			left: 3.56rem;
+			background-size:100% 100% ;
+		}
+		.right_bottom{
+			width: 0.38rem;
+			height:0.38rem;
+			background: url(img/person_04.png) no-repeat;
+			position: absolute;
+			right: 3.59rem;
+			bottom: 2.52rem;
+			background-size:100% 100% ;
+		}
+		.person_box{width:100%;height:auto;position:absolute;top: 2.3rem;left:0;}
+		.person_img{width: 2.46rem;height:2.46rem;margin:0 auto;}
+		h3{text-align: center;font-size: 0.36rem;color:#FFFFFF;}
+	</style>
+		<ion-content ng-controller="PersonalCtrl">
+			<div class="personal_top">
+				<div class="left_top"></div>
+				<div class="person_box">
+					<div class="person_img"><img src="img/person_touxiang.png" width="100%" height="auto" /></div>
+					<h3>{{informdata.userName}}</h3>
+				</div>
+				<div class="right_bottom"></div>
+			</div>
+
+			<div class="list">
+				<label class="item icon-left">
+					<i class="icon ion-ios-person-outline"></i>
+					<span class="item-note">{{informdata.userName}}</span>
+				</label>
+				<label class="item icon-left">
+					<i class="icon ion-ios-email-outline"></i>
+					<span class="item-note">{{informdata.email}}</span>
+				</label>
+				<label class="item icon-left">
+					<i class="icon ion-ios-telephone-outline"></i>
+					<span class="item-note">{{informdata.phone}}</span>
+				</label>
+				<div class="padding"></div>
+				<div class="button button-big button-positive col col-33 col-offset-33" ng-click="back()">退出登陆</div>
+			</div>
+		</ion-content>
+</ion-view>

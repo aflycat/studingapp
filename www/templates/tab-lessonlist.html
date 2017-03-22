@@ -1,0 +1,68 @@
+<ion-view view-title="Chats" hide-nav-bar='true' ng-controller="LessonlistCtrl">
+	<style>
+		.row_spe{
+			border-bottom: 1px solid #CCCCCC;
+		}
+		.lessondetail{
+			background: #E8E8E8;padding-bottom: 8px;overflow: hidden;
+		}
+		.lessondetail li{
+			float: left;margin-left:15px;
+			margin-top: 5px;width:20%;
+			border: 1px solid #ccc;
+			background:#FFFFFF;
+			line-height: 40px;
+			text-align: center;color:#333;}
+		.lessondetail li button{background: #FFFFFF;}
+		.pricelist{width:100%;background:#e8e8e8;}
+		.pricelist li{line-height: 40px;border-bottom: 1px solid #CCCCCC;}
+		.pricelist span{margin-left:59px;}
+		.item{width:100%}
+	</style>
+	<div >
+		<div class="bar bar-header item-input-inset" >
+			<label class="item-input-wrapper">
+				<button class="button icon ion-ios-search placeholder-icon"></button>
+				<input type="search" placeholder="输入关键词" ng-keyup="myKeyup($event)"ng-model="searchInputText"/>
+			</label>
+		</div>
+		<!--条件筛选-->
+		<div class="row row-spe">
+			<div class="col col-50 col-spe" id="lesson" style="border-right:1px solid #ccc;" ng-style="lcolor" ng-click="lessshow()">课程列表<i class="icon ion-chevron-down"></i></div>
+			<div class="col col-50 col-spe" id="price" style="margin-right: 0.2 rem;" ng-style="pcolor" ng-click="priceshow()">价格<i class="icon ion-chevron-down"></i></div>
+		</div>
+
+	</div>
+  <ion-content style="margin-top:2.8rem;">
+    <!--<ion-infinite-scroll on-infinite='loadmore()' immediate-check='false' icon='' distance='5%'></ion-infinite-scroll>-->
+    <div class="lessondetail"  ng-show="flag.lesson">
+    	<ul>
+    		<li ng-repeat="x in corseList" ng-click="pricouSearch('','{{x.sysId}}','')">{{x.title}}</li>
+        <li ng-click="pricouSearch('','全部','')">全部</li>
+      </ul>
+    </div>
+
+    <div class="pricelist"  ng-show="flag.price">
+    	<ul>
+    		<li ng-repeat="y in priceSelect" num='{{y.id}}' ng-click="pricouSearch('','','{{y.id}}')">
+    			{{y.val}}
+    		</li>
+
+    	</ul>
+    </div>
+    <ion-refresher pulling-text="释放立即刷新" on-refresh="doRefresh()"></ion-refresher>
+    <div class="content ionic-pseudo">
+    	<div class="list ">
+    		<ul>
+    			<li class="item item-thumbnail-left" ng-repeat="x in lists" ng-click="toStudy({{x.ID}})">
+    				<img src="{{URLAdmin+x.Cpic}}" style="height:auto;"/>
+    				<h2>{{x.Cname}}</h2>
+    				<p>{{x.Cprice}}</p>
+    			</li>
+
+    		</ul>
+    	</div>
+    </div>
+    <ion-infinite-scroll  on-infinite="loadMore()" distance="1%" ng-if="moredata" ></ion-infinite-scroll>
+  </ion-content>
+</ion-view>
